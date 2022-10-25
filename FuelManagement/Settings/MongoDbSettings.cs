@@ -6,7 +6,7 @@ namespace FuelManagement.Settings
         {
             get
             {
-                return "mongodb://localhost:27017";
+                return "mongodb+srv://adsg:adsg3160@cluster0.lv1lb.mongodb.net/?retryWrites=true&w=majority";
             }
         }
     }
