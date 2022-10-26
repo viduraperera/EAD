@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/background"
+    >
+
+    <TextView
+        android:id="@+id/txtWelcomeApp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="end"
+        android:paddingTop="25dp"
+        android:paddingRight="25dp"
+        android:text="Welcome to"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="InvalidId,MissingConstraints"
+        tools:layout_editor_absoluteX="49dp" />
+
+    <TextView
+        android:id="@+id/txtLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtWelcomeApp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingRight="25dp"
+        android:text="Fuel Queue"
+        android:textColor="@color/black"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:gravity="end"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="InvalidId,MissingConstraints"
+        tools:layout_editor_absoluteX="49dp" />
+
+    <Button
+        android:id="@+id/btnCreateAccount"
+        android:layout_width="310dp"
+        android:layout_height="62dp"
+        android:layout_below="@id/txtLogo"
+        android:background="@drawable/btn_signup"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
+        android:drawableRight="@drawable/ic_baseline_play_arrow_24"
+        android:gravity="end"
+        android:padding="14dp"
+        android:text="Create Account"
+        android:textColor="@color/black"
+        android:backgroundTint="#ECC600"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        />
+
+</RelativeLayout>
