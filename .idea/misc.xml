@@ -5,11 +5,11 @@
       <map>
         <entry key="..\:/andriod studio/EAD assigment/app/src/main/res/drawable/ic_launcher_background.xml" value="0.351" />
         <entry key="..\:/andriod studio/EAD assigment/app/src/main/res/layout/activity_main.xml" value="0.3494791666666667" />
-        <entry key="..\:/andriod studio/EAD assigment/app/src/main/res/layout/item.xml" value="0.25" />
+        <entry key="..\:/andriod studio/EAD assigment/app/src/main/res/layout/item.xml" value="0.75" />
         <entry key="..\:/andriod studio/EAD assigment/app/src/main/res/layout/login.xml" value="0.360054347826087" />
         <entry key="..\:/andriod studio/EAD assigment/app/src/main/res/layout/signin.xml" value="0.360054347826087" />
         <entry key="..\:/andriod studio/EAD assigment/app/src/main/res/layout/single_station.xml" value="0.360054347826087" />
-        <entry key="..\:/andriod studio/EAD assigment/app/src/main/res/layout/station_list.xml" value="0.360054347826087" />
+        <entry key="..\:/andriod studio/EAD assigment/app/src/main/res/layout/station_list.xml" value="0.33" />
       </map>
     </option>
   </component>
