@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using FuelManagement.Entities;
 using FuelManagement.Repositories;
 using FuelManagement.Dtos;
+using FuelManagement.Utilities;
 
 namespace FuelManagement.Controllers;
 
@@ -13,10 +14,13 @@ public class CustomerController : ControllerBase
 
     private readonly ILogger<CustomerController> _logger;
 
-    public CustomerController(IRepository<Customer> repository, ILogger<CustomerController> logger)
+    private readonly IConfiguration configuration;
+
+    public CustomerController(IConfiguration configuration, IRepository<Customer> repository, ILogger<CustomerController> logger)
     {
         _logger = logger;
         this.repository = repository;
+        this.configuration = configuration;
     }
 
     [HttpGet]
@@ -43,15 +47,40 @@ public class CustomerController : ControllerBase
     [HttpPost("register")]
     public async Task<ActionResult<CustomerDto>> RegisterUserAsync(CreateCustomerDto customerDto)
     {
+        var passwordManager = new PasswordUtilities();
+        passwordManager.CreatePasswordHash(customerDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
         Customer customer = new()
         {
             Id = Guid.NewGuid(),
             Name = customerDto.Name,
             Email = customerDto.Email,
             VehicleType = customerDto.VehicleType,
+            PasswordHash = passwordHash,
+            PasswordSalt = passwordSalt
         };
         await repository.CreateAsync(customer);
         return Ok();
+    }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<string>> Login(OwnerLogin credentials)
+    {
+        var customer = await repository.filterByEmail(credentials.email);
+
+        if (customer is null)
+        {
+            return NotFound();
+        }
+
+        var passwordManager = new PasswordUtilities();
+        if (!passwordManager.VerifyPasswordHash(credentials.password, customer.PasswordHash, customer.PasswordSalt))
+        {
+            return BadRequest("Wrong password.");
+        }
+
+        string token = passwordManager.CreateToken(customer, configuration.GetSection("AppSettings:Token").Value);
+        LoggedInCustomerDto loggedInCustomerDto = new LoggedInCustomerDto(customer.AsDto(), token);
+        return Ok(loggedInCustomerDto);
     }
 
     [HttpPatch("arrival/{id}")]
