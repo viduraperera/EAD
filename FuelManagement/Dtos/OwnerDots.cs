@@ -2,8 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 namespace FuelManagement.Dtos
 {
-    public record OwnerDto(Guid Id, string Name, string Email, string Password, string status, string FuelType, DateTimeOffset ArrivalTime, DateTimeOffset FinishTime);
-    public record OwnerDtoWithoutPassword(Guid Id, string Name, string Email, string status, string FuelType, DateTimeOffset ArrivalTime, DateTimeOffset FinishTime);
+    public record OwnerDto(Guid Id, string Name, string Email, string status, string FuelType, DateTimeOffset ArrivalTime, DateTimeOffset FinishTime);
+    public record OwnerDtoWithPassword(Guid Id, string Name, string Email,  string Password, string status, string FuelType, DateTimeOffset ArrivalTime, DateTimeOffset FinishTime);
     public record CreateOwnerDto([Required]string Name, [Required]string Email, string Password, [Required]string FuelType);
     public record UpdateArrivalTimeOwnerDto([Required]Guid FuelStationId);
     public record UpdateDepartureTimeOwnerDto([Required]bool DidPumpedFuel);
