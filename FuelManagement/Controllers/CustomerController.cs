@@ -83,6 +83,27 @@ public class CustomerController : ControllerBase
         return Ok(loggedInCustomerDto);
     }
 
+    [HttpPatch("{id}")]
+    public async Task<ActionResult<CustomerDto>> UpdateArrivalTimeAsync(Guid id, CustomerDto customerDto)
+    {
+        var customer = await repository.GetByIdAsync(id);
+
+        if (customer is null)
+        {
+            return NotFound();
+        }
+
+        customer.Name = customerDto.Name;
+        customer.Email = customerDto.Email;
+        customer.status = customerDto.status;
+        customer.VehicleType = customerDto.VehicleType;
+        customer.ArrivalTime = customerDto.ArrivalTime;
+        customer.DepartureTime = customerDto.DepartureTime;
+
+        await repository.UpdateAsync(customer);
+
+        return customer.AsDto();
+    }
     [HttpPatch("arrival/{id}")]
     public async Task<ActionResult<CustomerDto>> UpdateArrivalTimeAsync(Guid id, UpdateArrivalTimeCustomerDto updateArrivalTimeCustomerDto)
     {
@@ -93,7 +114,7 @@ public class CustomerController : ControllerBase
             return NotFound();
         }
 
-        customer.ArrivalTime = DateTimeOffset.Now;
+        customer.ArrivalTime = DateTime.Now;
         customer.FuelStationId = updateArrivalTimeCustomerDto.FuelStationId;
         customer.status = "In Queue";
 
@@ -112,7 +133,7 @@ public class CustomerController : ControllerBase
             return NotFound();
         }
 
-        customer.DepartureTime = DateTimeOffset.Now;
+        customer.DepartureTime = DateTime.Now;
         customer.status = updateCustomerDto.DidPumpedFuel == true ? "Fuel Pumped" : "No Fuel";
 
         await repository.UpdateAsync(customer);

@@ -95,7 +95,7 @@ public class OwnerController : ControllerBase
             return NotFound();
         }
 
-        owner.ArrivalTime = DateTimeOffset.Now;
+        owner.ArrivalTime = DateTime.Now;
         owner.status = "Fuel Available";
 
         await repository.UpdateAsync(owner);
@@ -113,13 +113,38 @@ public class OwnerController : ControllerBase
             return NotFound();
         }
 
-        owner.FinishTime = DateTimeOffset.Now;
+        owner.FinishTime = DateTime.Now;
         owner.status = "Fuel Not Available";
 
         await repository.UpdateAsync(owner);
 
         return owner.AsDto();
     }
+
+    [HttpPatch("{id}")]
+    public async Task<ActionResult<OwnerDto>> UpdateOwnerAsync(Guid id, OwnerDto ownerDto)
+    {
+        var owner = await repository.GetByIdAsync(id);
+
+        if (owner is null)
+        {
+            return NotFound();
+        }
+
+        owner.Name = ownerDto.Name;
+        owner.Email = ownerDto.Email;
+        owner.FuelType = ownerDto.FuelType;
+        owner.Location = ownerDto.Location;
+        owner.FinishTime = ownerDto.FinishTime;
+        owner.ArrivalTime = ownerDto.ArrivalTime;
+        owner.status = ownerDto.status;
+
+        await repository.UpdateAsync(owner);
+
+        return owner.AsDto();
+    }
+
+    
 
     [HttpGet("queue/{id}")]
     public async Task<QueueDto> GetCustomerQueueAsync(Guid id)

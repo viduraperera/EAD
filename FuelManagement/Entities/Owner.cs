@@ -4,7 +4,7 @@ namespace FuelManagement.Entities
     {
         public string FuelType { get; set; } = string.Empty;
         public string Location { get; set; } = string.Empty;
-        public DateTimeOffset ArrivalTime { get; set; }
-        public DateTimeOffset FinishTime { get; set; }
+        public DateTime ArrivalTime { get; set; }
+        public DateTime FinishTime { get; set; }
     }
 }
