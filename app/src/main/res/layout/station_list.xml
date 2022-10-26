@@ -3,7 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/list">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/list_backgroud"
+        android:layout_marginTop="145dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/staion_list_items"
@@ -27,13 +37,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.8"
-        tools:text="Stations" />
+        tools:text="Fuel Queue"
+        android:textSize="25dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
 
-    <SearchView
+    <EditText
         android:id="@+id/searchView"
-        android:layout_width="305dp"
-        android:layout_height="55dp"
+        android:layout_width="310dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="28dp"
+        android:background="@drawable/search_bar"
+        android:drawableLeft="@drawable/ic_baseline_search_24"
+        android:padding="10dp"
+        android:text="Search Your Station"
         app:layout_constraintBottom_toTopOf="@+id/staion_list_items"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
