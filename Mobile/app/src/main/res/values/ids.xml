@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="txtWelcomeTextInSignUp" type="id">WELCOME TO</item>
+    <item name="txtFuelQueue" type="id">Fuel Queue</item>
+    <item name="txtSignupText" type="id">Sign Up Account</item>
+    <item name="txtHello" type="id">Hello, you must login first to be able to use the application
+        and enjoy all the features in Fuel Queue.
+    </item>
+    <item name="rePassword" type="id">Re-enter Password</item>
+    <item name="btnSignup" type="id">Create Account</item>
+    <item name="txtHaveAccount" type="id">Already have an account? Login</item>
+</resources>
