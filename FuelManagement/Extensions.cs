@@ -15,11 +15,11 @@ namespace FuelManagement
         }
         public static OwnerDto AsDto(this Owner owner)
         {
-            return new OwnerDto(owner.Id, owner.Name, owner.Email, owner.status, owner.FuelType, owner.ArrivalTime, owner.FinishTime);
+            return new OwnerDto(owner.Id, owner.Name, owner.Email, owner.status, owner.FuelType, owner.Location, owner.ArrivalTime, owner.FinishTime);
         }
         public static OwnerDtoWithPassword AsPasswordDto(this Owner owner)
         {
-            return new OwnerDtoWithPassword(owner.Id, owner.Name, owner.Email, owner.PasswordHash, owner.PasswordSalt, owner.status, owner.FuelType, owner.ArrivalTime, owner.FinishTime);
+            return new OwnerDtoWithPassword(owner.Id, owner.Name, owner.Email, owner.PasswordHash, owner.PasswordSalt, owner.status, owner.FuelType, owner.Location, owner.ArrivalTime, owner.FinishTime);
         }
     }
 }

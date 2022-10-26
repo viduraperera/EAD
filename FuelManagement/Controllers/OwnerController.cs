@@ -55,6 +55,7 @@ public class OwnerController : ControllerBase
             Name = ownerDto.Name,
             Email = ownerDto.Email,
             FuelType = ownerDto.FuelType,
+            Location = ownerDto.Location,
             PasswordHash = passwordHash,
             PasswordSalt = passwordSalt
         };
