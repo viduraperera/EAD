@@ -34,6 +34,7 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -84,7 +85,10 @@ public class OwnerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Date currentTime = Calendar.getInstance().getTime();
-                System.out.println(new Date().toGMTString());
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    LocalDateTime date = LocalDateTime.now();
+                    owner.setFinishTime(date.toString());
+                }
                 String time = currentTime.toLocaleString();
                 setFinishTimeText.setText(time);
                 owner.setStatus("Fuel Not Available");
@@ -217,7 +221,7 @@ public class OwnerActivity extends AppCompatActivity {
                 },
                 (Response.ErrorListener) error -> {
                     System.out.println("Error");
-                    Toast.makeText(OwnerActivity.this, "Some error occurred! Cannot fetch owner data", Toast.LENGTH_LONG).show();
+                    Toast.makeText(OwnerActivity.this, "Some error occurred! Cannot update owner data", Toast.LENGTH_LONG).show();
                     Log.e("MainActivity", "Update owner error: ${error.localizedMessage}");
                 }
         );

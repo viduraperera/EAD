@@ -90,6 +90,7 @@
             android:id="@+id/set_arrive_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue"
             android:text="Set Time"/>
     </LinearLayout>
     <LinearLayout
@@ -109,6 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/finish_button"
+            android:backgroundTint="@color/blue"
             android:text="Set Time"/>
     </LinearLayout>
     <Button
@@ -118,5 +120,6 @@
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
+        android:backgroundTint="@color/blue"
         android:layout_height="wrap_content"/>
 </RelativeLayout>
