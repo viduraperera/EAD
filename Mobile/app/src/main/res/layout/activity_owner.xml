@@ -1,0 +1,105 @@
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:text="Station Name"
+        android:textSize="19dp"
+        android:id="@+id/station_name"
+        android:layout_marginHorizontal="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/name_input"
+        android:layout_marginHorizontal="16dp"
+        android:layout_below="@+id/station_name"
+        android:hint="Station Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:textSize="19dp"
+        android:text="Station Location"
+        android:layout_below="@+id/name_input"
+        android:id="@+id/station_location"
+        android:layout_marginHorizontal="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/location_input"
+        android:layout_marginHorizontal="16dp"
+        android:layout_below="@+id/station_location"
+        android:hint="Station Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:textSize="19dp"
+        android:text="Fuel Type"
+        android:layout_below="@+id/location_input"
+        android:id="@+id/type"
+        android:layout_marginHorizontal="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/type"
+        android:id="@+id/switchButtonLayout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="Petrol"
+            android:textSize="19dp"
+            android:textStyle="bold"/>
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_marginHorizontal="16dp"
+            android:id="@+id/switchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Diesel"
+            android:textSize="19dp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/arrive_time_layout"
+        android:layout_below="@id/switchButtonLayout">
+        <EditText
+            android:id="@+id/arrive"
+            android:layout_marginHorizontal="16dp"
+            android:hint="Arrived Time"
+            android:layout_width="wrap_content"
+            android:inputType="datetime"
+            android:width="240dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/set_arrive_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Time"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/finish_time_layout"
+        android:layout_below="@+id/arrive_time_layout">
+        <EditText
+            android:width="240dp"
+            android:inputType="datetime"
+            android:id="@+id/finish"
+            android:layout_marginHorizontal="16dp"
+            android:hint="Finished Time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Time"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -2,6 +2,7 @@ package com.example.fuelqueue;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ListAdapter;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
         stationList = new ArrayList<>();
         listView= findViewById(R.id.listview);
+        Intent i = new Intent(MainActivity.this, OwnerActivity.class);
+        startActivity(i);
     }
 
     public class GetData extends AsyncTask<String, String, String>{
@@ -104,14 +107,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
             //Display results
-            ListAdapter adapter = new SimpleAdapter(
-                    MainActivity.this,
-                    stationList,
-                    R.layout.station_list,
-                    new String[] {"name", "username"},
-                    new int[]{R.id.textView, R.id.textView2});
-
-            listView.setAdapter(adapter);
+//            ListAdapter adapter = new SimpleAdapter(
+//                    MainActivity.this,
+//                    stationList,
+//                    R.layout.station_list,
+//                    new String[] {"name", "username"},
+//                    new int[]{R.id.textView, R.id.textView2});
+//
+//            listView.setAdapter(adapter);
         }
     }
 }
