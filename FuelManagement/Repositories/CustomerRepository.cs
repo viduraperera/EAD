@@ -34,5 +34,10 @@ namespace FuelManagement.Repositories
             var filter = filterBuilder.Eq(existingCustomer => existingCustomer.Id, customer.Id);
             await customersCollection.ReplaceOneAsync(filter, customer);
         }
+         public async Task<Customer> filterByEmail(string email)
+        {
+            var filter = filterBuilder.Eq(owner => owner.Email, email);
+            return await customersCollection.Find(filter).SingleOrDefaultAsync();
+        }
     }
 }

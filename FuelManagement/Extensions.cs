@@ -7,7 +7,7 @@ namespace FuelManagement
     {
         public static CustomerDtoWithPassword AsPasswordDto(this Customer customer)
         {
-            return new CustomerDtoWithPassword(customer.Id, customer.Name, customer.Email, customer.Password, customer.status, customer.VehicleType, customer.ArrivalTime, customer.DepartureTime, customer.FuelStationId);
+            return new CustomerDtoWithPassword(customer.Id, customer.Name, customer.Email, customer.PasswordHash, customer.PasswordSalt, customer.status, customer.VehicleType, customer.ArrivalTime, customer.DepartureTime, customer.FuelStationId);
         }
         public static CustomerDto AsDto(this Customer customer)
         {
@@ -19,7 +19,7 @@ namespace FuelManagement
         }
         public static OwnerDtoWithPassword AsPasswordDto(this Owner owner)
         {
-            return new OwnerDtoWithPassword(owner.Id, owner.Name, owner.Email, owner.Password, owner.status, owner.FuelType, owner.ArrivalTime, owner.FinishTime);
+            return new OwnerDtoWithPassword(owner.Id, owner.Name, owner.Email, owner.PasswordHash, owner.PasswordSalt, owner.status, owner.FuelType, owner.ArrivalTime, owner.FinishTime);
         }
     }
 }

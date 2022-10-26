@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using FuelManagement.Entities;
 using FuelManagement.Repositories;
 using FuelManagement.Dtos;
+using FuelManagement.Utilities;
 
 namespace FuelManagement.Controllers;
 
@@ -13,10 +14,13 @@ public class OwnerController : ControllerBase
 
     private readonly ILogger<OwnerController> _logger;
 
-    public OwnerController(IOwnerRepository<Owner> repository, ILogger<OwnerController> logger)
+    private readonly IConfiguration configuration;
+
+    public OwnerController(IConfiguration configuration, IOwnerRepository<Owner> repository, ILogger<OwnerController> logger)
     {
         _logger = logger;
         this.repository = repository;
+        this.configuration = configuration;
     }
 
     [HttpGet]
@@ -43,19 +47,45 @@ public class OwnerController : ControllerBase
     [HttpPost("register")]
     public async Task<ActionResult<OwnerDto>> RegisterUserAsync(CreateOwnerDto ownerDto)
     {
+        var passwordManager = new PasswordUtilities();
+        passwordManager.CreatePasswordHash(ownerDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
         Owner owner = new()
         {
             Id = Guid.NewGuid(),
             Name = ownerDto.Name,
             Email = ownerDto.Email,
             FuelType = ownerDto.FuelType,
+            PasswordHash = passwordHash,
+            PasswordSalt = passwordSalt
         };
+
         await repository.CreateAsync(owner);
-        return Ok();
+        return Ok(owner);
+    }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<string>> Login(OwnerLogin credentials)
+    {
+        var owner = await repository.filterByEmail(credentials.email);
+
+        if (owner is null)
+        {
+            return NotFound();
+        }
+
+        var passwordManager = new PasswordUtilities();
+        if (!passwordManager.VerifyPasswordHash(credentials.password, owner.PasswordHash, owner.PasswordSalt))
+        {
+            return BadRequest("Wrong password.");
+        }
+
+        string token = passwordManager.CreateToken(owner, configuration.GetSection("AppSettings:Token").Value);
+        LoggedInOwnerDto loggedInOwnerDto = new LoggedInOwnerDto(owner.AsDto(), token);
+        return Ok(loggedInOwnerDto);
     }
 
     [HttpPatch("arrival/{id}")]
-    public async Task<ActionResult<OwnerDto>> UpdateArrivalTimeAsync(Guid id, UpdateArrivalTimeCustomerDto updateArrivalTimeCustomerDto)
+    public async Task<ActionResult<OwnerDto>> UpdateArrivalTimeAsync(Guid id)
     {
         var owner = await repository.GetByIdAsync(id);
 
@@ -73,7 +103,7 @@ public class OwnerController : ControllerBase
     }
 
     [HttpPatch("finish/{id}")]
-    public async Task<ActionResult<OwnerDto>> UpdateDepartureTimeAsync(Guid id, UpdateDepartureTimeCustomerDto updateCustomerDto)
+    public async Task<ActionResult<OwnerDto>> UpdateDepartureTimeAsync(Guid id)
     {
         var owner = await repository.GetByIdAsync(id);
 
@@ -83,7 +113,7 @@ public class OwnerController : ControllerBase
         }
 
         owner.FinishTime = DateTimeOffset.Now;
-        owner.status = "Fuel Available";
+        owner.status = "Fuel Not Available";
 
         await repository.UpdateAsync(owner);
 

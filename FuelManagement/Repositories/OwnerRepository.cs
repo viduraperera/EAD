@@ -36,6 +36,12 @@ namespace FuelManagement.Repositories
             await ownersCollection.ReplaceOneAsync(filter, owner);
         }
 
+        public async Task<Owner> filterByEmail(string email)
+        {
+            var filter = filterBuilder.Eq(owner => owner.Email, email);
+            return await ownersCollection.Find(filter).SingleOrDefaultAsync();
+        }
+
         public async Task<OwnerQueueDetails> getQueueCountById(Guid id)
         {
             BsonDocument pipelineStage1 = new BsonDocument{
