@@ -7,6 +7,8 @@ import androidx.core.content.ContextCompat;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.res.ColorStateList;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,14 +40,21 @@ import java.util.Map;
 
 public class OwnerActivity extends AppCompatActivity {
     Owner owner;
+    String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner);
-        loadOwnerData();
         Button setArriveTimeBtn = findViewById(R.id.set_arrive_time);
         Button setFinishTimeBtn = findViewById(R.id.finish_button);
         Button updateButton = findViewById(R.id.update_button);
+        SQLiteDatabase db = openOrCreateDatabase("FuelManagement",MODE_PRIVATE,null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS User(id VARCHAR,Name VARCHAR);");
+        db.execSQL("INSERT INTO User VALUES('a8317746-6c5e-45dc-8f9f-ed0a83aa25c5','IOC');");
+        Cursor resultSet = db.rawQuery("Select * from User",null);
+        resultSet.moveToFirst();
+        userId = resultSet.getString(0);
+        loadOwnerData();
 
         SwitchCompat switchCompat = findViewById(R.id.switchButton);
 
@@ -149,7 +158,7 @@ public class OwnerActivity extends AppCompatActivity {
     }
     private void loadOwnerData() {
         RequestQueue volleyQueue = Volley.newRequestQueue(OwnerActivity.this);
-        String url = "https://fuel-management-api.herokuapp.com/owners/a8317746-6c5e-45dc-8f9f-ed0a83aa25c5";
+        String url = "https://fuel-management-api.herokuapp.com/owners/" + userId;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -181,7 +190,7 @@ public class OwnerActivity extends AppCompatActivity {
 
     private void UpdateOwnerData() throws JSONException {
         RequestQueue volleyQueue = Volley.newRequestQueue(OwnerActivity.this);
-        String url = "https://fuel-management-api.herokuapp.com/owners/a8317746-6c5e-45dc-8f9f-ed0a83aa25c5";
+        String url = "https://fuel-management-api.herokuapp.com/owners/" + userId;
         Gson gson = new Gson();
         String userJson = gson.toJson(owner);
         JSONObject user = new JSONObject(userJson);
