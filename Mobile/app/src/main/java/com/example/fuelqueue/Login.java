@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +36,29 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
 
+        SQLiteDatabase db = openOrCreateDatabase("FuelManagement",MODE_PRIVATE,null);
+        Cursor resultSet = db.rawQuery("Select * from User",null);
+        resultSet.moveToFirst();
+        String userType = resultSet.getString(1);
+        System.out.println(userType);
+        Intent i;
+        if (userType == "customers") {
+            i = new Intent(Login.this, StationList.class);
+        } else {
+            i = new Intent(Login.this, OwnerActivity.class);
+        }
+        startActivity(i);
+
         TextView btnLogin = findViewById(R.id.btnLogin);
+        TextView DoNotHaveAccountTextView = findViewById(R.id.DoNotHaveAccountTextView);
+
+        DoNotHaveAccountTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Login.this, Register.class);
+                startActivity(i);
+            }
+        });
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,7 +77,16 @@ public class Login extends AppCompatActivity {
         dialog.setInverseBackgroundForced(false);
         dialog.show();
         RequestQueue volleyQueue = Volley.newRequestQueue(Login.this);
-        String url = "https://fuel-management-api.herokuapp.com/customers/login";
+        CheckBox checkBox = findViewById(R.id.checkbox);
+
+        String userType = checkBox.isChecked() ? "owners" : "customers";
+        String url = String.format("https://fuel-management-api.herokuapp.com/%s/login", userType);
+//        if (checkBox.isChecked()) {
+//            url = "https://fuel-management-api.herokuapp.com/owners/login";
+//        } else {
+//            url = "https://fuel-management-api.herokuapp.com/customers/login";
+//        }
+
 
         EditText password = findViewById(R.id.password);
         EditText email = findViewById(R.id.email);
@@ -73,13 +106,19 @@ public class Login extends AppCompatActivity {
                         System.out.println(response);
                         JSONObject jsonObject = response.getJSONObject("owner");
                         String id = (String) jsonObject.get("id");
-                        String name = (String) jsonObject.get("name");
+//                        String name = (String) jsonObject.get("name");
                         SQLiteDatabase db = openOrCreateDatabase("FuelManagement",MODE_PRIVATE,null);
                         db.execSQL("DROP TABLE IF EXISTS "+"User");
-                        String query = String.format("INSERT INTO User VALUES(\'%s\',\'%s\');", id, name);
-                        db.execSQL("CREATE TABLE IF NOT EXISTS User(id VARCHAR,Name VARCHAR);");
+                        db.execSQL("CREATE TABLE IF NOT EXISTS User(id VARCHAR,Type VARCHAR);");
+                        String query = String.format("INSERT INTO User VALUES(\'%s\',\'%s\');", id, userType);
                         db.execSQL(query);
-                        Intent i = new Intent(Login.this, StationList.class);
+                        Intent i;
+                        if (checkBox.isChecked()) {
+                            i = new Intent(Login.this, OwnerActivity.class);
+                        } else {
+                            i = new Intent(Login.this, StationList.class);
+                        }
+
                         startActivity(i);
                     } catch (JSONException e) {
                         e.printStackTrace();

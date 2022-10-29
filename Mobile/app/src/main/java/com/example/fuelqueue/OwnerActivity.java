@@ -3,8 +3,10 @@ package com.example.fuelqueue;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
@@ -50,12 +52,22 @@ public class OwnerActivity extends AppCompatActivity {
         Button setFinishTimeBtn = findViewById(R.id.finish_button);
         Button updateButton = findViewById(R.id.update_button);
         SQLiteDatabase db = openOrCreateDatabase("FuelManagement",MODE_PRIVATE,null);
-//        db.execSQL("CREATE TABLE IF NOT EXISTS User(id VARCHAR,Name VARCHAR);");
-//        db.execSQL("INSERT INTO User VALUES('a8317746-6c5e-45dc-8f9f-ed0a83aa25c5','IOC');");
         Cursor resultSet = db.rawQuery("Select * from User",null);
         resultSet.moveToFirst();
         userId = resultSet.getString(0);
+
+        final SwipeRefreshLayout pullToRefresh = findViewById(R.id.swiperefresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadQueueData();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+
+
         loadOwnerData();
+        loadQueueData();
 
         SwitchCompat switchCompat = findViewById(R.id.switchButton);
 
@@ -115,6 +127,31 @@ public class OwnerActivity extends AppCompatActivity {
         } else {
             status.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(OwnerActivity.this, R.color.red)));
         }
+    }
+
+    private void loadQueueData() {
+        RequestQueue volleyQueue = Volley.newRequestQueue(OwnerActivity.this);
+        String url = "https://fuel-management-api.herokuapp.com/owners/queue/" + userId;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                (Response.Listener<JSONObject>) response -> {
+                    try {
+                        Integer count = (Integer) response.get("queue");
+                        TextView QueueCount = findViewById(R.id.QueueCount);
+                        QueueCount.setText(count.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                (Response.ErrorListener) error -> {
+                    System.out.println(error);
+                    Toast.makeText(OwnerActivity.this, "Some error occurred! Cannot fetch owner data", Toast.LENGTH_LONG).show();
+                    Log.e("MainActivity", "Load owner error: ${error.localizedMessage}");
+                }
+        );
+        volleyQueue.add(jsonObjectRequest);
     }
 
     private void setOwnerData() {
@@ -193,6 +230,11 @@ public class OwnerActivity extends AppCompatActivity {
     }
 
     private void UpdateOwnerData() throws JSONException {
+        ProgressDialog dialog=new ProgressDialog(OwnerActivity.this);
+        dialog.setMessage("Loading...");
+        dialog.setCancelable(false);
+        dialog.setInverseBackgroundForced(false);
+        dialog.show();
         RequestQueue volleyQueue = Volley.newRequestQueue(OwnerActivity.this);
         String url = "https://fuel-management-api.herokuapp.com/owners/" + userId;
         Gson gson = new Gson();
@@ -204,6 +246,7 @@ public class OwnerActivity extends AppCompatActivity {
                 user,
                 (Response.Listener<JSONObject>) response -> {
                     try {
+                        dialog.hide();
                         owner = new Owner();
                         owner.setId((String) response.get("id"));
                         owner.setName((String) response.get("name"));
@@ -216,11 +259,13 @@ public class OwnerActivity extends AppCompatActivity {
                         setOwnerData();
 
                     } catch (JSONException e) {
+                        dialog.hide();
                         e.printStackTrace();
                     }
                 },
                 (Response.ErrorListener) error -> {
                     System.out.println("Error");
+                    dialog.hide();
                     Toast.makeText(OwnerActivity.this, "Some error occurred! Cannot update owner data", Toast.LENGTH_LONG).show();
                     Log.e("MainActivity", "Update owner error: ${error.localizedMessage}");
                 }

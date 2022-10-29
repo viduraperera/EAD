@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:background="@drawable/background" >
 
     <ImageView
@@ -109,6 +108,14 @@
         app:layout_constraintTop_toBottomOf="@+id/email"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="41dp" />
+    <CheckBox
+        android:layout_below="@id/password"
+        android:layout_marginStart="50dp"
+        android:id="@+id/checkbox"
+        android:textColor="@color/black"
+        android:text="Login to your station account ?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/btnLogin"
@@ -116,7 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/password"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="75dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/btn_login"
@@ -126,7 +133,7 @@
     />
 
     <TextView
-        android:id="@+id/txtDonthaveAccount"
+        android:id="@+id/DoNotHaveAccountTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnLogin"
