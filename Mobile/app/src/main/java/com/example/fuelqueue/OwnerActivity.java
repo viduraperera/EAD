@@ -50,8 +50,8 @@ public class OwnerActivity extends AppCompatActivity {
         Button setFinishTimeBtn = findViewById(R.id.finish_button);
         Button updateButton = findViewById(R.id.update_button);
         SQLiteDatabase db = openOrCreateDatabase("FuelManagement",MODE_PRIVATE,null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS User(id VARCHAR,Name VARCHAR);");
-        db.execSQL("INSERT INTO User VALUES('a8317746-6c5e-45dc-8f9f-ed0a83aa25c5','IOC');");
+//        db.execSQL("CREATE TABLE IF NOT EXISTS User(id VARCHAR,Name VARCHAR);");
+//        db.execSQL("INSERT INTO User VALUES('a8317746-6c5e-45dc-8f9f-ed0a83aa25c5','IOC');");
         Cursor resultSet = db.rawQuery("Select * from User",null);
         resultSet.moveToFirst();
         userId = resultSet.getString(0);

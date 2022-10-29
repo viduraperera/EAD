@@ -2,7 +2,9 @@ package com.example.fuelqueue;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,6 +45,11 @@ public class Login extends AppCompatActivity {
         });
     }
     private void login() throws JSONException {
+        ProgressDialog dialog=new ProgressDialog(Login.this);
+        dialog.setMessage("Loading...");
+        dialog.setCancelable(false);
+        dialog.setInverseBackgroundForced(false);
+        dialog.show();
         RequestQueue volleyQueue = Volley.newRequestQueue(Login.this);
         String url = "https://fuel-management-api.herokuapp.com/owners/login";
 
@@ -59,13 +66,25 @@ public class Login extends AppCompatActivity {
                 url,
                 user,
                 (Response.Listener<JSONObject>) response -> {
-                    Intent i = new Intent(Login.this, OwnerActivity.class);
-                    startActivity(i);
+                    try {
+                        dialog.hide();
+                        System.out.println(response);
+                        JSONObject jsonObject = response.getJSONObject("owner");
+                        String id = (String) jsonObject.get("id");
+                        String name = (String) jsonObject.get("name");
+                        SQLiteDatabase db = openOrCreateDatabase("FuelManagement",MODE_PRIVATE,null);
+                        db.execSQL("CREATE TABLE IF NOT EXISTS User(id VARCHAR,Name VARCHAR);");
+                        db.execSQL("INSERT INTO User VALUES($id,$name);");
+                        Intent i = new Intent(Login.this, StationList.class);
+                        startActivity(i);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 },
                 (Response.ErrorListener) error -> {
                     System.out.println(error);
-                    Toast.makeText(Login.this, "Some error occurred! Cannot update owner data", Toast.LENGTH_LONG).show();
-                    Log.e("MainActivity", "Update owner error: ${error.localizedMessage}");
+                    Toast.makeText(Login.this, "Some error occurred! Cannot login", Toast.LENGTH_LONG).show();
+                    Log.e("MainActivity", error.getLocalizedMessage());
                 }
         );
         volleyQueue.add(jsonObjectRequest);
