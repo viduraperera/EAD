@@ -97,15 +97,15 @@ public class SingleStation extends AppCompatActivity {
 
     private void loadQueueData() {
         RequestQueue volleyQueue = Volley.newRequestQueue(SingleStation.this);
-        String url = "https://fuel-management-api.herokuapp.com/owners/queue/" + userId;
+        String url = "https://fuel-management-api.herokuapp.com/owners/queue/" + stationId;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
                 null,
                 (Response.Listener<JSONObject>) response -> {
                     try {
-                        this.count = (Integer) response.get("id");
-                        QueueCount.setText(this.count);
+                        Integer count = (Integer) response.get("queue");
+                        QueueCount.setText(count.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -121,7 +121,7 @@ public class SingleStation extends AppCompatActivity {
 
     private void JoinQueue() throws JSONException {
         RequestQueue volleyQueue = Volley.newRequestQueue(SingleStation.this);
-        String url = "https://fuel-management-api.herokuapp.com/customer/arrival/" + userId;
+        String url = "https://fuel-management-api.herokuapp.com/customers/arrival/" + userId;
         JSONObject user = new JSONObject();
         user.put("FuelStationId", this.stationId);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -141,7 +141,7 @@ public class SingleStation extends AppCompatActivity {
     }
     private void Exit(boolean DidPumpedFuel) throws JSONException {
         RequestQueue volleyQueue = Volley.newRequestQueue(SingleStation.this);
-        String url = "https://fuel-management-api.herokuapp.com/customer/departure/" + userId;
+        String url = "https://fuel-management-api.herokuapp.com/customers/departure/" + userId;
         JSONObject user = new JSONObject();
         user.put("DidPumpedFuel", DidPumpedFuel);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(

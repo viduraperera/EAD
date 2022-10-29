@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.695"
-        android:text="2"
+        android:text="0"
         android:gravity="center"
         android:background="@drawable/fuel_station_number"
         android:textSize="25dp"/>

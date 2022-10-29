@@ -53,7 +53,7 @@ public class Login extends AppCompatActivity {
         dialog.setInverseBackgroundForced(false);
         dialog.show();
         RequestQueue volleyQueue = Volley.newRequestQueue(Login.this);
-        String url = "https://fuel-management-api.herokuapp.com/owners/login";
+        String url = "https://fuel-management-api.herokuapp.com/customers/login";
 
         EditText password = findViewById(R.id.password);
         EditText email = findViewById(R.id.email);
@@ -76,11 +76,9 @@ public class Login extends AppCompatActivity {
                         String name = (String) jsonObject.get("name");
                         SQLiteDatabase db = openOrCreateDatabase("FuelManagement",MODE_PRIVATE,null);
                         db.execSQL("DROP TABLE IF EXISTS "+"User");
-//                        String query = String.format("INSERT INTO User VALUES('06093bae-4784-4d82-92ef-0495eb972796',%s);", name);
-//                        db.execSQL("CREATE TABLE IF NOT EXISTS User(id BLOB,Name VARCHAR);");
-//                        db.execSQL(query);
+                        String query = String.format("INSERT INTO User VALUES(\'%s\',\'%s\');", id, name);
                         db.execSQL("CREATE TABLE IF NOT EXISTS User(id VARCHAR,Name VARCHAR);");
-                        db.execSQL("INSERT INTO User VALUES('e5b1a306-2f5d-4c2c-873b-420e30dd258f','IOC');");
+                        db.execSQL(query);
                         Intent i = new Intent(Login.this, StationList.class);
                         startActivity(i);
                     } catch (JSONException e) {
@@ -88,7 +86,7 @@ public class Login extends AppCompatActivity {
                     }
                 },
                 (Response.ErrorListener) error -> {
-                    System.out.println(error);
+                    dialog.hide();
                     Toast.makeText(Login.this, "Some error occurred! Cannot login", Toast.LENGTH_LONG).show();
                     Log.e("MainActivity", "error.getLocalizedMessage()");
                 }
