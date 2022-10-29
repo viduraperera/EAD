@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editTextNumber"
+    <TextView
+        android:id="@+id/QueueCount"
         android:layout_width="51dp"
         android:layout_height="53dp"
         android:layout_marginEnd="60dp"
@@ -28,7 +28,7 @@
         android:layout_height="100dp"
         android:text="Kalutara Station"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/editTextNumber"
+        app:layout_constraintEnd_toStartOf="@+id/QueueCount"
         app:layout_constraintHorizontal_bias="0.424"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -44,13 +44,13 @@
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="32dp"
         android:text="In Queue"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/joinButton"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center"
         android:textStyle="bold"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/joinButton"
         android:layout_width="130dp"
         android:layout_height="44dp"
         android:gravity="center"
@@ -94,7 +94,7 @@
         android:layout_marginTop="100dp"
         android:text="Fuel Type"
         android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/afterButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.343"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +102,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/beforeButton"
         android:layout_width="248dp"
         android:layout_height="43dp"
         android:layout_marginTop="524dp"
@@ -114,14 +114,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/afterButton"
         android:layout_width="248dp"
         android:layout_height="43dp"
         android:text="Exit After pump fuel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/beforeButton"
         android:background="@drawable/join"/>
 
     <TextView

@@ -53,7 +53,9 @@ public class StationList extends AppCompatActivity {
                 for (int i = 0 ; i < response.length() ; i++){
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
+                        System.out.println(jsonObject);
 
+                        String stationId = jsonObject.getString("id");
                         String stationName = jsonObject.getString("name");
                         String location = jsonObject.getString("location");
                         String arrivalTime = jsonObject.getString("arrivalTime");
@@ -61,7 +63,7 @@ public class StationList extends AppCompatActivity {
                         String fuelType = jsonObject.getString("fuelType");
                         String status = jsonObject.getString("status");
 
-                        Station station = new Station(stationName, arrivalTime, finishTime, location, fuelType, status);
+                        Station station = new Station(stationId, stationName, arrivalTime, finishTime, location, fuelType, status);
                         stationList.add(station);
 
                     } catch (JSONException e) {

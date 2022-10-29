@@ -151,9 +151,9 @@ public class OwnerController : ControllerBase
     {
         OwnerQueueDetails queue = await repository.getQueueCountById(id);
 
-        List<CustomerDto> fuelPumped = new List<CustomerDto>();
+        List<CustomerDtoWithPassword> fuelPumped = new List<CustomerDtoWithPassword>();
 
-        foreach (CustomerDto customer in queue.customers)
+        foreach (CustomerDtoWithPassword customer in queue.customers)
         {
             if (customer.status == "Fuel Pumped")
             {
@@ -166,7 +166,8 @@ public class OwnerController : ControllerBase
         {
             elapsedTime += item.DepartureTime - item.ArrivalTime;
         }
-        TimeSpan averageTime = elapsedTime.Divide(fuelPumped.Count());
+        var pumpedCount = fuelPumped.Count() > 0 ? fuelPumped.Count() : 1;
+        TimeSpan averageTime = elapsedTime.Divide(pumpedCount);
         int count = queue.customers.Count() - fuelPumped.Count();
         TimeSpan estimatedTime = averageTime.Multiply(count);
 

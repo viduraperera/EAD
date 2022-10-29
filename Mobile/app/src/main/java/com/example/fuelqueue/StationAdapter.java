@@ -46,6 +46,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationH
                 Intent intent = new Intent(context, SingleStation.class);
 
                 Bundle bundle = new Bundle();
+                bundle.putString("id", station.getId());
                 bundle.putString("name", station.getName());
                 bundle.putString("location", station.getLocation());
                 bundle.putString("arrival_time", station.getArrivalTime());

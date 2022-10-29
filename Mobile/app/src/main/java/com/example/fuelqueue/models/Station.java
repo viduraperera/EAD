@@ -4,9 +4,10 @@ import java.util.Date;
 
 public class Station {
 
-    private String name, arrivalTime, finishTime, location, fuelType, status;
+    private String id, name, arrivalTime, finishTime, location, fuelType, status;
 
-    public Station(String name, String arrivalTime, String finishTime, String location, String fuelType, String status){
+    public Station(String id, String name, String arrivalTime, String finishTime, String location, String fuelType, String status){
+        this.id = id;
         this.name = name;
         this.arrivalTime = arrivalTime;
         this.finishTime = finishTime;
@@ -14,6 +15,8 @@ public class Station {
         this.fuelType = fuelType;
         this.status = status;
     }
+
+    public String getId() { return id;}
 
     public String getName() {
         return name;

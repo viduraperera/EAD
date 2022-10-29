@@ -24,6 +24,8 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.UUID;
+
 public class Login extends AppCompatActivity {
 
     @Override
@@ -73,8 +75,12 @@ public class Login extends AppCompatActivity {
                         String id = (String) jsonObject.get("id");
                         String name = (String) jsonObject.get("name");
                         SQLiteDatabase db = openOrCreateDatabase("FuelManagement",MODE_PRIVATE,null);
+                        db.execSQL("DROP TABLE IF EXISTS "+"User");
+//                        String query = String.format("INSERT INTO User VALUES('06093bae-4784-4d82-92ef-0495eb972796',%s);", name);
+//                        db.execSQL("CREATE TABLE IF NOT EXISTS User(id BLOB,Name VARCHAR);");
+//                        db.execSQL(query);
                         db.execSQL("CREATE TABLE IF NOT EXISTS User(id VARCHAR,Name VARCHAR);");
-                        db.execSQL("INSERT INTO User VALUES($id,$name);");
+                        db.execSQL("INSERT INTO User VALUES('e5b1a306-2f5d-4c2c-873b-420e30dd258f','IOC');");
                         Intent i = new Intent(Login.this, StationList.class);
                         startActivity(i);
                     } catch (JSONException e) {
@@ -84,7 +90,7 @@ public class Login extends AppCompatActivity {
                 (Response.ErrorListener) error -> {
                     System.out.println(error);
                     Toast.makeText(Login.this, "Some error occurred! Cannot login", Toast.LENGTH_LONG).show();
-                    Log.e("MainActivity", error.getLocalizedMessage());
+                    Log.e("MainActivity", "error.getLocalizedMessage()");
                 }
         );
         volleyQueue.add(jsonObjectRequest);
