@@ -6,21 +6,30 @@
     <RelativeLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:android="http://schemas.android.com/apk/res/android">
+        <com.google.android.material.chip.Chip
+            android:id="@+id/status"
+            android:layout_marginBottom="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:text="Status"/>
         <LinearLayout
+            android:layout_below="@id/status"
             android:id="@id/status_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <com.google.android.material.chip.Chip
-                android:id="@+id/status"
-                android:layout_marginBottom="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:text="Status"/>
             <TextView
+                android:layout_marginLeft="16dp"
                 android:textStyle="bold"
                 android:textSize="16dp"
                 android:id="@+id/QueueCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_marginStart="16dp"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:id="@+id/estimatedTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -98,7 +107,7 @@
             <EditText
                 android:id="@+id/arrive"
                 android:layout_marginHorizontal="16dp"
-                android:hint="Arrived Time"
+                android:hint="Fuel Arrived Time"
                 android:layout_width="wrap_content"
                 android:inputType="datetime"
                 android:width="240dp"
@@ -120,7 +129,7 @@
                 android:inputType="datetime"
                 android:id="@+id/finish"
                 android:layout_marginHorizontal="16dp"
-                android:hint="Finished Time"
+                android:hint="Fuel Finished Time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <Button
