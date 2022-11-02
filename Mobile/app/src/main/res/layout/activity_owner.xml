@@ -2,26 +2,60 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/swiperefresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroung_app">
     <RelativeLayout android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android">
-        <com.google.android.material.chip.Chip
-            android:id="@+id/status"
-            android:layout_marginBottom="16dp"
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/txtOwner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:text="Status"/>
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="50dp"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="Fuel Information"
+            android:textColor="@color/black"
+            android:textSize="35dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="388dp"
+            android:layout_height="581dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/iv_background_app"
+            android:gravity="center" />
+
         <LinearLayout
             android:layout_below="@id/status"
             android:id="@id/status_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="160dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            >
+            <com.google.android.material.chip.Chip
+                android:id="@+id/status"
+                android:layout_marginBottom="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:text="Status"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:background="@color/red"/>
             <TextView
                 android:layout_marginLeft="16dp"
                 android:textStyle="bold"
-                android:textSize="16dp"
+                android:textSize="18dp"
                 android:id="@+id/QueueCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -35,118 +69,198 @@
         </LinearLayout>
         <TextView
             android:text="Station Name"
-            android:textSize="19dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_below="@+id/status_layout"
             android:id="@+id/station_name"
             android:layout_marginHorizontal="16dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"/>
+
         <EditText
             android:id="@+id/name_input"
-            android:layout_marginHorizontal="16dp"
-            android:layout_below="@+id/station_name"
-            android:hint="Station Name"
-            android:outlineSpotShadowColor="@color/purple_700"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/station_name"
+            android:layout_marginHorizontal="16dp"
+            android:hint="Station Name"
+            android:minHeight="48dp"
+            android:outlineSpotShadowColor="@color/purple_700"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="18dp"
+            android:background="@drawable/edit_text"
+            android:paddingLeft="15dp"/>
         <TextView
-            android:textSize="19dp"
             android:text="Station Location"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_below="@+id/name_input"
             android:id="@+id/station_location"
             android:layout_marginHorizontal="16dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp" />
+
         <EditText
             android:id="@+id/location_input"
-            android:layout_marginHorizontal="16dp"
-            android:layout_below="@+id/station_location"
-            android:hint="Station Name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/station_location"
+            android:layout_marginHorizontal="16dp"
+            android:hint="Station Name"
+            android:minHeight="48dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="18dp"
+            android:background="@drawable/edit_text"
+            android:paddingLeft="15dp"/>
         <TextView
-            android:textSize="19dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:text="Fuel Type"
             android:layout_below="@+id/location_input"
             android:id="@+id/type"
             android:layout_marginHorizontal="16dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/type"
-            android:id="@+id/switchButtonLayout">
+            android:id="@+id/switchButtonLayout"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="5dp" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:text="Petrol"
-                android:textSize="19dp"
-                android:textStyle="bold"/>
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp" />
             <androidx.appcompat.widget.SwitchCompat
                 android:layout_marginHorizontal="16dp"
                 android:id="@+id/switchButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Diesel"
-                android:textSize="19dp"
-                android:textStyle="bold"/>
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/arrive_time_layout"
-            android:layout_below="@id/switchButtonLayout">
+            android:layout_below="@id/switchButtonLayout"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="5dp">
+
             <EditText
                 android:id="@+id/arrive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
+                android:width="200dp"
                 android:hint="Fuel Arrived Time"
                 android:layout_width="wrap_content"
                 android:inputType="datetime"
-                android:width="240dp"
-                android:layout_height="wrap_content"/>
+                android:minHeight="48dp"
+                android:textSize="18dp"
+                android:background="@drawable/edit_text"
+                android:paddingLeft="15dp" />
             <Button
                 android:id="@+id/set_arrive_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/purple_700"
-                android:text="Set Time"/>
+                android:text="Set Time"
+                android:textSize="16dp"
+                android:background="@drawable/btn_owner_activity"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/finish_time_layout"
-            android:layout_below="@+id/arrive_time_layout">
+            android:layout_below="@+id/arrive_time_layout"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="5dp">
+
             <EditText
-                android:width="240dp"
-                android:inputType="datetime"
                 android:id="@+id/finish"
-                android:layout_marginHorizontal="16dp"
-                android:hint="Fuel Finished Time"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:width="200dp"
+                android:inputType="datetime"
+                android:minHeight="48dp"
+                android:textSize="18dp"
+                android:background="@drawable/edit_text"
+                android:paddingLeft="15dp"
+                android:hint="Fuel Finished Time"/>
             <Button
-                android:backgroundTint="@color/purple_700"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/finish_button"
-                android:text="Set Time"/>
+                android:text="Set Time"
+                android:textSize="16dp"
+                android:background="@drawable/btn_owner_activity"/>
         </LinearLayout>
         <Button
             android:layout_below="@id/finish_time_layout"
             android:id="@+id/update_button"
             android:text="Update"
-            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_login"
             android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:backgroundTint="@color/purple_700"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="50dp"
+            android:textSize="20dp"/>
     </RelativeLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
