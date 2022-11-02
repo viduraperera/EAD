@@ -6,5 +6,5 @@ namespace FuelManagement.Dtos
     public record CreateCustomerDto([Required]string Name, [Required]string Email, string Password, [Required]string VehicleType);
     public record UpdateArrivalTimeCustomerDto([Required]Guid FuelStationId);
     public record UpdateDepartureTimeCustomerDto([Required]bool DidPumpedFuel);
-    public record LoggedInCustomerDto(CustomerDto owner, string token);
+    public record LoggedInCustomerDto(CustomerDto user, string token);
 }

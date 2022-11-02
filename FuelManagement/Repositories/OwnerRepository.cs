@@ -62,7 +62,10 @@ namespace FuelManagement.Repositories
                 }
             };
             BsonDocument pipelineStage3 = new BsonDocument{
-                { "$unwind", "$customers" }
+                { "$unwind", new BsonDocument{
+                    { "path", "$customers" },
+                    { "preserveNullAndEmptyArrays", true }
+                } }
             };
 
             BsonDocument pipelineStage4 = new BsonDocument{
