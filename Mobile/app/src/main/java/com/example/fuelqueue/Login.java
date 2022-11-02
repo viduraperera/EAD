@@ -62,7 +62,7 @@ public class Login extends AppCompatActivity {
         DoNotHaveAccountTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Login.this, Register.class);
+                Intent i = new Intent(Login.this, RegisterActivity.class);
                 startActivity(i);
             }
         });

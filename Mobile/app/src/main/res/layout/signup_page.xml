@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:background="@drawable/background" >
 
     <ImageView
@@ -93,6 +92,25 @@
         android:padding="20dp"/>
 
     <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="230dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_text"
+        android:drawableLeft="@drawable/ic_baseline_person_outline_24"
+        android:drawablePadding="20dp"
+        android:hint="Name"
+        android:padding="15dp"
+        android:textColor="#C3C3C3"
+        android:textColorHint="#C3C3C3"
+        app:layout_constraintTop_toBottomOf="@+id/txtHello"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="29dp" />
+
+    <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -102,7 +120,7 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="18dp"
         android:background="@drawable/edit_text"
-        android:drawableLeft="@drawable/ic_baseline_person_outline_24"
+        android:drawableLeft="@drawable/email"
         android:drawablePadding="20dp"
         android:hint="Email Address"
         android:padding="15dp"
@@ -133,7 +151,7 @@
         tools:layout_editor_absoluteX="41dp" />
 
     <EditText
-        android:id="@+id/rePassword"
+        android:id="@+id/reFuelType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/password"
@@ -142,9 +160,9 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="18dp"
         android:background="@drawable/edit_text"
-        android:drawableLeft="@drawable/ic_baseline_lock_24"
+        android:drawableLeft="@drawable/fuel_type_foreground"
         android:drawablePadding="20dp"
-        android:hint="Re-enter Password"
+        android:hint="Fuel Type"
         android:padding="15dp"
         android:textColor="#C3C3C3"
         android:textColorHint="#C3C3C3"
@@ -156,10 +174,9 @@
         android:id="@+id/btnSignup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rePassword"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="550dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/btn_login"
@@ -185,6 +202,13 @@
         tools:ignore="InvalidId,MissingConstraints"
         tools:layout_editor_absoluteX="49dp"
         android:padding="20dp"/>
+
+    <ProgressBar
+        android:id="@+id/loadingPB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
 
 </RelativeLayout>
