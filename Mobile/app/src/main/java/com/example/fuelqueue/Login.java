@@ -88,12 +88,6 @@ public class Login extends AppCompatActivity {
 
         String userType = checkBox.isChecked() ? "owners" : "customers";
         String url = String.format("https://fuel-management-api.herokuapp.com/%s/login", userType);
-//        if (checkBox.isChecked()) {
-//            url = "https://fuel-management-api.herokuapp.com/owners/login";
-//        } else {
-//            url = "https://fuel-management-api.herokuapp.com/customers/login";
-//        }
-
 
         EditText password = findViewById(R.id.password);
         EditText email = findViewById(R.id.email);
@@ -111,9 +105,8 @@ public class Login extends AppCompatActivity {
                     try {
                         dialog.hide();
                         System.out.println(response);
-                        JSONObject jsonObject = response.getJSONObject("owner");
+                        JSONObject jsonObject = response.getJSONObject("user");
                         String id = (String) jsonObject.get("id");
-//                        String name = (String) jsonObject.get("name");
                         SQLiteDatabase db = openOrCreateDatabase("FuelManagement",MODE_PRIVATE,null);
                         db.execSQL("DROP TABLE IF EXISTS "+"User");
                         db.execSQL("CREATE TABLE IF NOT EXISTS User(id VARCHAR,Type VARCHAR);");
