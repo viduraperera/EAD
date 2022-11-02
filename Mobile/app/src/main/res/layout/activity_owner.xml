@@ -30,9 +30,19 @@
             android:layout_marginEnd="20dp"
             android:background="@drawable/iv_background_app"
             android:gravity="center" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/status"
+            android:layout_marginBottom="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:text="Status"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@color/red"/>
 
         <LinearLayout
-            android:layout_below="@id/status"
             android:id="@id/status_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,17 +51,6 @@
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             >
-            <com.google.android.material.chip.Chip
-                android:id="@+id/status"
-                android:layout_marginBottom="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:text="Status"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:background="@color/red"/>
             <TextView
                 android:layout_marginLeft="16dp"
                 android:textStyle="bold"
@@ -194,7 +193,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginBottom="5dp">
+            android:layout_marginBottom="20dp"
+            android:paddingBottom="10dp">
 
             <EditText
                 android:id="@+id/arrive"
@@ -203,7 +203,6 @@
                 android:layout_marginHorizontal="16dp"
                 android:width="200dp"
                 android:hint="Fuel Arrived Time"
-                android:layout_width="wrap_content"
                 android:inputType="datetime"
                 android:minHeight="48dp"
                 android:textSize="18dp"
@@ -213,8 +212,8 @@
                 android:id="@+id/set_arrive_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Set Time"
-                android:textSize="16dp"
+                android:text="Set"
+                android:textSize="12dp"
                 android:background="@drawable/btn_owner_activity"/>
         </LinearLayout>
         <LinearLayout
@@ -225,7 +224,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginBottom="5dp">
+            android:layout_marginBottom="20dp">
 
             <EditText
                 android:id="@+id/finish"
@@ -243,8 +242,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/finish_button"
-                android:text="Set Time"
-                android:textSize="16dp"
+                android:text="Set"
+                android:textSize="12dp"
                 android:background="@drawable/btn_owner_activity"/>
         </LinearLayout>
         <Button
@@ -257,7 +256,7 @@
             android:backgroundTint="@color/purple_700"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="50dp"

@@ -182,7 +182,7 @@ public class OwnerActivity extends AppCompatActivity {
                         String duration = durationTemp.split("[.]")[0];
 
                         TextView durationText = findViewById(R.id.estimatedTime);
-                        String durationMessage = "Estimated Time to pump: " + duration;
+                        String durationMessage = "Estimated Time: " + duration;
                         durationText.setText(durationMessage);
 
                         Integer count = (Integer) response.get("queue");
