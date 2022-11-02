@@ -37,17 +37,24 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.login_page);
 
         SQLiteDatabase db = openOrCreateDatabase("FuelManagement",MODE_PRIVATE,null);
-        Cursor resultSet = db.rawQuery("Select * from User",null);
-        resultSet.moveToFirst();
-        String userType = resultSet.getString(1);
-        System.out.println(userType);
-        Intent i;
-        if (userType == "customers") {
-            i = new Intent(Login.this, StationList.class);
+        Cursor tableExistsResultSet = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='User'",null);
+        tableExistsResultSet.moveToFirst();
+        Integer tableCount = tableExistsResultSet.getCount();
+        if (tableCount == 1) {
+            Cursor resultSet = db.rawQuery("Select * from User",null);
+            resultSet.moveToFirst();
+            String userType = resultSet.getString(1);
+            System.out.println(userType);
+            Intent i;
+            if (userType == "customers") {
+                i = new Intent(Login.this, StationList.class);
+            } else {
+                i = new Intent(Login.this, OwnerActivity.class);
+            }
+            startActivity(i);
         } else {
-            i = new Intent(Login.this, OwnerActivity.class);
+            db.execSQL("CREATE TABLE IF NOT EXISTS User(id VARCHAR,Type VARCHAR);");
         }
-        startActivity(i);
 
         TextView btnLogin = findViewById(R.id.btnLogin);
         TextView DoNotHaveAccountTextView = findViewById(R.id.DoNotHaveAccountTextView);
