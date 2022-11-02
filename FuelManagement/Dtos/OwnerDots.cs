@@ -10,5 +10,5 @@ namespace FuelManagement.Dtos
     public record OwnerQueueDetails(Guid _id, string Name, CustomerDtoWithPassword[] customers);
     public record QueueDto(Guid Id, TimeSpan estimatedTime, int queue);
     public record OwnerLogin([Required] string email, [Required] string password);
-    public record LoggedInOwnerDto(OwnerDto owner, string token);
+    public record LoggedInOwnerDto(OwnerDto user, string token);
 }
