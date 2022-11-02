@@ -44,6 +44,7 @@ import java.util.Map;
 public class OwnerActivity extends AppCompatActivity {
     Owner owner;
     String userId;
+    ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +56,11 @@ public class OwnerActivity extends AppCompatActivity {
         Cursor resultSet = db.rawQuery("Select * from User",null);
         resultSet.moveToFirst();
         userId = resultSet.getString(0);
+
+        dialog = new ProgressDialog(OwnerActivity.this);
+        dialog.setMessage("Loading...");
+        dialog.setCancelable(false);
+        dialog.setInverseBackgroundForced(false);
 
         final SwipeRefreshLayout pullToRefresh = findViewById(R.id.swiperefresh);
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -130,6 +136,7 @@ public class OwnerActivity extends AppCompatActivity {
     }
 
     private void loadQueueData() {
+        dialog.show();
         RequestQueue volleyQueue = Volley.newRequestQueue(OwnerActivity.this);
         String url = "https://fuel-management-api.herokuapp.com/owners/queue/" + userId;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -140,12 +147,15 @@ public class OwnerActivity extends AppCompatActivity {
                     try {
                         Integer count = (Integer) response.get("queue");
                         TextView QueueCount = findViewById(R.id.QueueCount);
-                        QueueCount.setText(count.toString());
+                        String queueMessage = "Users in Queue: " + count.toString();
+                        QueueCount.setText(queueMessage);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    dialog.hide();
                 },
                 (Response.ErrorListener) error -> {
+                    dialog.hide();
                     System.out.println(error);
                     Toast.makeText(OwnerActivity.this, "Some error occurred! Cannot fetch owner data", Toast.LENGTH_LONG).show();
                     Log.e("MainActivity", "Load owner error: ${error.localizedMessage}");
@@ -198,6 +208,7 @@ public class OwnerActivity extends AppCompatActivity {
         }
     }
     private void loadOwnerData() {
+        dialog.show();
         RequestQueue volleyQueue = Volley.newRequestQueue(OwnerActivity.this);
         String url = "https://fuel-management-api.herokuapp.com/owners/" + userId;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -220,8 +231,10 @@ public class OwnerActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    dialog.hide();
                 },
                 (Response.ErrorListener) error -> {
+                    dialog.hide();
                     Toast.makeText(OwnerActivity.this, "Some error occurred! Cannot fetch owner data", Toast.LENGTH_LONG).show();
                     Log.e("MainActivity", "Load owner error: ${error.localizedMessage}");
                 }
@@ -230,10 +243,6 @@ public class OwnerActivity extends AppCompatActivity {
     }
 
     private void UpdateOwnerData() throws JSONException {
-        ProgressDialog dialog=new ProgressDialog(OwnerActivity.this);
-        dialog.setMessage("Loading...");
-        dialog.setCancelable(false);
-        dialog.setInverseBackgroundForced(false);
         dialog.show();
         RequestQueue volleyQueue = Volley.newRequestQueue(OwnerActivity.this);
         String url = "https://fuel-management-api.herokuapp.com/owners/" + userId;
@@ -246,7 +255,6 @@ public class OwnerActivity extends AppCompatActivity {
                 user,
                 (Response.Listener<JSONObject>) response -> {
                     try {
-                        dialog.hide();
                         owner = new Owner();
                         owner.setId((String) response.get("id"));
                         owner.setName((String) response.get("name"));
@@ -259,9 +267,9 @@ public class OwnerActivity extends AppCompatActivity {
                         setOwnerData();
 
                     } catch (JSONException e) {
-                        dialog.hide();
                         e.printStackTrace();
                     }
+                    dialog.hide();
                 },
                 (Response.ErrorListener) error -> {
                     System.out.println("Error");
