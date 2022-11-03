@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -43,6 +44,7 @@ public class SingleStation extends AppCompatActivity {
         TextView location = findViewById(R.id.location_single);
         TextView arrivalTime = findViewById(R.id.fuel_arrival_time_single);
         TextView finishTime = findViewById(R.id.fuel_finish_time_single);
+        TextView fuelType = findViewById(R.id.fuel_type);
         QueueCount = findViewById(R.id.QueueCount);
 
 
@@ -53,25 +55,36 @@ public class SingleStation extends AppCompatActivity {
         String sLocation = bundle.getString("location");
         String sArrivalTime = bundle.getString("arrival_time");
         String sFinishTime = bundle.getString("finish_time");
+        String sFuelType = bundle.getString("fuel_type");
 
         stationName.setText(sStation.toString());
         location.setText(sLocation.toString());
         arrivalTime.setText(sArrivalTime.toString());
         finishTime.setText(sFinishTime.toString());
+        fuelType.setText(sFuelType.toString());
         loadQueueData();
 
-        Button joinButton = findViewById(R.id.joinButton);
+        final Button joinButton = findViewById(R.id.joinButton);
+        final Button afterButton = findViewById(R.id.afterButton);
+        final Button beforeButton =  findViewById(R.id.beforeButton);
+
+        afterButton.setEnabled(false);
+        beforeButton.setEnabled(false);
+
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     JoinQueue();
+                    joinButton.setEnabled(false);
+                    afterButton.setEnabled(true);
+                    beforeButton.setEnabled(true);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
-        Button afterButton = findViewById(R.id.afterButton);
+
         afterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +95,7 @@ public class SingleStation extends AppCompatActivity {
                 }
             }
         });
-        Button beforeButton = findViewById(R.id.beforeButton);
+
         beforeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,6 +104,15 @@ public class SingleStation extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        final SwipeRefreshLayout pullToRefresh = findViewById(R.id.swiperefreshsingle);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadQueueData();
+                pullToRefresh.setRefreshing(false);
             }
         });
     }
@@ -159,4 +181,5 @@ public class SingleStation extends AppCompatActivity {
         );
         volleyQueue.add(jsonObjectRequest);
     }
+
 }

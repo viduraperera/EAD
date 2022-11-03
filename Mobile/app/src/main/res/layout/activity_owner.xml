@@ -32,7 +32,7 @@
             android:gravity="center" />
 
         <LinearLayout
-            android:layout_below="@id/status"
+            android:layout_below="@id/txtOwner"
             android:id="@id/status_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -203,7 +203,6 @@
                 android:layout_marginHorizontal="16dp"
                 android:width="200dp"
                 android:hint="Fuel Arrived Time"
-                android:layout_width="wrap_content"
                 android:inputType="datetime"
                 android:minHeight="48dp"
                 android:textSize="18dp"
