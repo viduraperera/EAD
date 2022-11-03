@@ -32,17 +32,17 @@
             android:layout_marginEnd="20dp"
             android:background="@drawable/iv_background_app"
             android:gravity="center" />
-        <com.google.android.material.chip.Chip
-            android:id="@+id/status"
-            android:layout_marginBottom="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:text="Status"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:background="@color/red"/>
+<!--        <com.google.android.material.chip.Chip-->
+<!--            android:id="@+id/status"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="16dp"-->
+<!--            android:text="Status"-->
+<!--            android:textSize="18dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:background="@color/red"/>-->
 
         <LinearLayout
             android:id="@id/status_layout"
@@ -212,6 +212,7 @@
             <EditText
                 android:id="@+id/arrive"
                 android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:width="200dp"
                 android:hint="Fuel Arrived Time"
