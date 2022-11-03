@@ -55,7 +55,7 @@ public class SingleStation extends AppCompatActivity {
         String sLocation = bundle.getString("location");
         String sArrivalTime = bundle.getString("arrival_time");
         String sFinishTime = bundle.getString("finish_time");
-        String sFuelType = bundle.getString("fuel_type");
+        String sFuelType = bundle.getString("fuelType");
 
         stationName.setText(sStation.toString());
         location.setText(sLocation.toString());
