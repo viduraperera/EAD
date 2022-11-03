@@ -59,7 +59,7 @@ public class CustomerController : ControllerBase
             PasswordSalt = passwordSalt
         };
         await repository.CreateAsync(customer);
-        return Ok();
+        return Ok(customer);
     }
 
     [HttpPost("login")]

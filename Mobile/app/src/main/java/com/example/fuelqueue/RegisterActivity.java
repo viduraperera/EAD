@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -49,6 +50,16 @@ public class RegisterActivity extends AppCompatActivity {
         fuelType = findViewById(R.id.reFuelType);
         submitButton = findViewById(R.id.btnSignup);
         progressBar = findViewById(R.id.loadingPB);
+
+        TextView txtHaveAccount = findViewById(R.id.txtHaveAccount);
+
+        txtHaveAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(RegisterActivity.this, Login.class);
+                startActivity(i);
+            }
+        });
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
